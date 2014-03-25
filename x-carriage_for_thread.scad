@@ -7,7 +7,7 @@
 // thread & ratchet mods by Joe Suber
 
 use <./bearing.scad>
-use </home/suber1/Things/x-carriage_thread_plug.scad>
+use <./x-carriage_thread_plug.scad>
 TEMP=0;
 module x_carriage_base(){
  // Small bearing holder

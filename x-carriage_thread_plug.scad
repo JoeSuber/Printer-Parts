@@ -168,15 +168,6 @@ difference(){
 
 }
 
-// negative mold for capping the x-carriage cut-out
-module mold(){
-	difference(){
-	translate([0,0,.1])
-	cylinder(r=outer_ring_diameter/2-.1, h=capH, $fn=48);
-	ratcheteeth();
-	}
-}
-
 //** manually copied relavent items from x-carriage_for_thread.scad
 //** note 'top' of plate here will be face down against x-carriage
 module plate(){
