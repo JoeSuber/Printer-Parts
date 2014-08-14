@@ -2,7 +2,7 @@
 // original source of some things = demo.scad from RatchetLib
 */
 use </home/suber1/Things/DXFs and SCADs/bearing.scad>;
-use <./Parametric_Ratchet_Library/RatchetLib.scad>;
+use </home/suber1/openscad/libraries/MCAD/gears.scad>;
 //use <../thumbwheel_thread_tensionwheel.scad>
 
 // inner (teeth) ring
@@ -61,23 +61,10 @@ outer_ratchet_ring(
 
 module keymaster(){
 //translate([outer_ring_diameter,0,holderT/2])
-inner_ratchet_ring(
-	ratchet_direction,
-	inner_ring_diameter,
-	inner_ring_height,
-	inner_ring_thickness,
-	outer_ring_diameter,
-	outer_ring_height,
-	outer_ring_thickness,
-	arms,
-	arm_type,
-	arm_head_width,
-	arm_head_length,
-	arm_height,
-	teeth_multiple,
-	tolerance,
-	slant,
-	facets);
+linear_extrude(height = 10, center = true, convexity = 10, twist = 2)
+gear(number_of_teeth=17,circular_pitch=150);
+translate([0,0,-7])
+	cube([12,28,7], center=true);
 //translate([outer_ring_diameter,0, holderT/4+.33])
 //	minkowski(){
 //	cube([holderT*.8,holderT*1.8,holderT/2-2], center=true);
@@ -131,8 +118,8 @@ difference(){
 		//translate([0,0,holderT/2])
 		//	cube([holderT*1.617,holderT*.67,holderT/2],center=true);
 		
-		translate([0,0,0 - TEMP/2])
-			cylinder(r=holderT, h=capH+capH -2 -TEMP, center=true, $fn=6);
+		translate([0,0,0 - TEMP/2-1.5])
+			cylinder(r=holderT, h=capH+capH-TEMP, center=true, $fn=36);
 		translate([0,0,capH -1 - TEMP])
 			keymaster();
 		translate([0,0,holderT/2+5])
@@ -140,13 +127,13 @@ difference(){
 	}
 	// bottom cone cut-out in key - bigger cut than in blank
 	translate([0,0,holderT/2+12-5])
-		cylinder(r1=2+tolerance, r2=ORD/2+tolerance/2 - 1, h = 6.1, $fn=64);
+		cylinder(r1=1.95+tolerance, r2=ORD/2+tolerance/2 - 1, h = 6.1, $fn=64);
 	translate([0,0,0])
 		cylinder(r=1.6, h=80, center=true, $fn=16);
-	translate([0,0,12]) rotate([95,0,0])
+	translate([0,0,14.5]) rotate([95,0,0])
 		cylinder(r=.6, h=80, center=true, $fn=16);
 	translate([0,0,-3])
-		cylinder(r=3, h=7, center=true, $fn=6);
+		cylinder(r=5.1, h=7, center=true, $fn=36);
 	translate([0,0,holderT/2+7])
 		// a rough torus to make ring indents
 		//minkowski(){
